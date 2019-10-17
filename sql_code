@@ -1,0 +1,163 @@
+//Tables
+
+CREATE TABLE Section(
+cnum VARCHAR(3) NOT NULL,
+snum VARCHAR(2),
+room VARCHAR(3),
+seats VARCHAR(3),
+begintime VARCHAR(7),
+endtime VARCHAR(7),
+day VARCHAR(4),
+ssn VARCHAR(9),
+PRIMARY KEY(cnum, snum),
+FOREIGN KEY(ssn) REFERENCES Professor(ssn));
+
+
+CREATE TABLE Course(
+cnum VARCHAR(3) NOT NULL,
+units VARCHAR(1),
+text VARCHAR(100),
+title VARCHAR(100),
+dnum VARCHAR(3),
+PRIMARY KEY(cnum),
+FOREIGN KEY(dnum) REFERENCES Department(dnum));
+
+CREATE TABLE Department(
+dnum VARCHAR(3) NOT NULL,
+name VARCHAR(50) NOT NULL,
+phone VARCHAR(10) NOT NULL,
+office VARCHAR(5) NOT NULL,
+ssn VARCHAR(9) NOT NULL,
+PRIMARY KEY(dnum),
+FOREIGN KEY(ssn) REFERENCES Professor(ssn));
+
+
+CREATE TABLE Professor(
+ssn VARCHAR(9) NOT NULL,
+name VARCHAR(50) NOT NULL,
+sex CHAR(1) NOT NULL,
+salary VARCHAR(6) NOT NULL,
+title VARCHAR(50) NOT NULL,
+degree VARCHAR(5) NOT NULL,
+areacode CHAR(3),
+7digits CHAR(7),
+street VARCHAR(50),
+city VARCHAR(50),
+state VARCHAR(50),
+zip VARCHAR(5),
+PRIMARY KEY(ssn));
+
+
+CREATE TABLE Student(
+cwid CHAR(9) NOT NULL,
+fname VARCHAR(50),
+lname VARCHAR(50),
+phone VARCHAR(10),
+address VARCHAR(50),
+dnum_major VARCHAR(50),
+dnum_minor VARCHAR(50),
+PRIMARY KEY(cwid),
+FOREIGN KEY(dnum_major, dnum_minor) REFERENCES Department(dnum));
+
+
+CREATE TABLE Enrollment(
+cwid CHAR(9) NOT NULL,
+cnum VARCHAR(3),
+snum VARCHAR(2),
+grade VARCHAR(2),
+FOREIGN KEY(cwid) REFERENCES Student(cwid),
+FOREIGN KEY(cnum, snum) REFERENCES Section(cnum, snum));
+
+
+//Section
+
+INSERT INTO Section
+VALUES ('300', '01','100' , '45', '8:00am', '9:00am', 'MoWe', '100101000');
+INSERT INTO Section
+VALUES ('300', '02','100' , '45', '10:00am', '11:00am', 'MoWe', '100101000');
+
+INSERT INTO Section
+VALUES ('301', '01','101' , '45', '8:00am', '9:00am', 'MoWe', '200202000');
+INSERT INTO Section
+VALUES ('301', '02','101' , '45', '10:00am', '11:00am', 'MoWe', '200202000');
+
+INSERT INTO Section
+VALUES ('302', '01','102' , '45', '8:00am', '9:00am', 'TuTh', '300303000');
+INSERT INTO Section
+VALUES ('302', '02','102' , '45', '10:00am', '11:00am', 'TuTh', '300303000');
+
+INSERT INTO Section
+VALUES ('303', '01','103' , '45', '8:00am', '9:00am', 'TuTh', '400404000');
+INSERT INTO Section
+VALUES ('303', '02','103' , '45', '10:00am', '11:00am', 'TuTh', '400404000');
+
+
+//Course
+
+INSERT INTO Course
+VALUES ('300', '4', 'Algebra Practice Problems vol.1', 'Elementary Algebra', '001');
+
+INSERT INTO Course
+VALUES ('301', '4', 'Algebra Practice Problems vol.2', 'Intermediate Algebra', '001');
+
+
+INSERT INTO Course
+VALUES ('302', '3', 'Fundamental C++', 'Intro to Programming', '002');
+
+INSERT INTO Course
+VALUES ('303', '3', 'Data Structures in C++', 'Object Oriented Programming', '002');
+
+//Department
+
+INSERT INTO Department
+VALUES ('001','Mathmatics', '1001001000', 'MA100', '300303000' );
+
+INSERT INTO Department
+VALUES ('002', 'Computer Science','2002002000', 'CS100', '400404000');
+
+//Professor
+INSERT INTO Professor
+VALUES ('100101000', 'Smith, John', 'M', '100,000', 'Phd', 'Doctorate', '951', '9009000', 'Ellis ln', 'Ontario', 'California', '91780' );
+
+INSERT INTO Professor
+VALUES ('200203000', 'Wright, Jane', 'F', '200,000', 'Phd', 'Doctorate', '671', '8008000', 'Muscatel Rd', 'Anaheim', 'California', '91430' );
+
+INSERT INTO Professor
+VALUES ('00303000', 'Artwood, Robert', 'M', '300,000', 'Phd', 'Doctorate', '714', '7007000', 'Rosemead St', 'La Habra', 'California', '91230' );
+
+INSERT INTO Professor
+VALUES ('400404000', 'Sanders, Ariel', 'M', '400,000', 'Phd', 'Doctorate', '714', '6006000', 'San Antonio Dr', 'Chino', 'California', '91410' );
+
+
+//Student
+
+INSERT INTO Student
+VAlUES ('100000000', 'Lawrence', 'Charles', '3003003000', '1706 Sparrow rd, Fullerton, CA 91232', '300303000', '400404000' );
+
+INSERT INTO Student
+VAlUES ('200000000', 'Martin', 'Shore', '4004004000', '706 Manfield dr, Fullerton, CA 91232', '300303000', '400404000' );
+
+INSERT INTO Student
+VAlUES ('300000000', 'Sarah', 'Stevens', '5005005000', '270 Crashfield, Fullerton, CA 91232', '400404000', '300303000' );
+
+INSERT INTO Student
+VAlUES ('400000000', 'Steven', 'Stewarts', '6006006000', '6707 Saltwater Pl, Fullerton, CA 91232', '400404000', '300303000' );
+
+INSERT INTO Student
+VAlUES ('500000000', 'Salvador', 'Ruiz', '7007007000', '7090 Lester Rd, Fullerton, CA 91232', '300303000', '400404000' );
+
+INSERT INTO Student
+VAlUES ('600000000', 'Claire', 'Sanchez', '8008008000', '901 Sansfield Dr, Fullerton, CA 91232', '300303000', '400404000' );
+
+
+INSERT INTO Student
+VAlUES ('700000000', 'Alvin', 'Price', '9009009000', '6802 Anteater Rd, Fullerton, CA 91232', '400404000', '300303000' );
+
+INSERT INTO Student
+VAlUES ('800000000', 'Ralph', 'Reyes', '9109109100', '625 Attawata St, Fullerton, CA 91232', '400404000', '300303000' );
+
+INSERT INTO Student
+VAlUES ('900000000', 'Xavier', 'Salazar', '7807807800', '906 Diamond Rd, Fullerton, CA 91232', '300303000', '400404000' );
+
+INSERT INTO Student
+VAlUES ('110000000', 'Alfred', 'Saenz', '8308308300', '9000 Crystal Dr, Fullerton, CA 91232', '300303000', '400404000' );
